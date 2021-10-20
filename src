@@ -1,0 +1,84 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.io.*;
+import java.util.*;
+public class Main
+{
+  public static boolean numberOrNot (String input)
+  {
+    try
+    {
+      Integer.parseInt (input);
+    }
+    catch (NumberFormatException ex)
+    {
+      return false;
+    }
+    return true;
+  }
+
+  public static void main (String args[]) throws Exception
+  {
+    Scanner sc = new Scanner (System.in);
+
+    int ingredient = sc.nextInt ();
+
+    String ingredientAvailableArr[] = new String[ingredient];
+    String ingredientNeededArr[] = new String[ingredient];
+
+      try
+    {
+      for (int index = 0; index < ingredient; index++)
+	{
+	  ingredientAvailableArr[index] = sc.next ();
+	  if (!numberOrNot (ingredientAvailableArr[index]))
+	    {
+	      ingredientAvailableArr[index] = "0";
+	    }
+	}
+
+      for (int index = 0; index < ingredient; index++)
+	{
+	  ingredientNeededArr[index] = sc.next ();
+	  if (!numberOrNot (ingredientNeededArr[index]))
+	    {
+	      ingredientNeededArr[index] = "0";
+	    }
+	}
+
+      int maximumNoOfPowerPuffGirls = 0;
+      for (int index = 0; index < ingredient; index++)
+	{
+	  int powerPuffGirlBySupply = 0;
+	  int powerPuffIngredient = 0;
+	  if (Integer.parseInt (ingredientNeededArr[index]) >
+	      Integer.parseInt (ingredientAvailableArr[index]))
+	    {
+
+	      while (powerPuffGirlBySupply <
+		     Integer.parseInt (ingredientNeededArr[index]))
+		{
+		  powerPuffIngredient++;
+		  powerPuffGirlBySupply =
+		    Integer.parseInt (ingredientAvailableArr[index]) *
+		    powerPuffIngredient;
+		}
+
+	      if (maximumNoOfPowerPuffGirls == 0
+		  || maximumNoOfPowerPuffGirls > powerPuffIngredient)
+		maximumNoOfPowerPuffGirls = powerPuffIngredient;
+	    }
+	}
+      System.out.println (maximumNoOfPowerPuffGirls);
+    }
+    catch (Exception e)
+    {
+      throw e;
+    }
+  }
+}
